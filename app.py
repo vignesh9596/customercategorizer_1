@@ -2,8 +2,9 @@ from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-
+import os
 import uvicorn
+
 
 app = FastAPI()
 
@@ -64,7 +65,11 @@ def predict(
 
 
 # 🔥 MAIN ENTRY POINT
+
+
 if __name__ == "__main__":
-    print("Starting FastAPI server...")
-    print(" Open browser at: http://127.0.0.1:8000")
-    uvicorn.run("app:app", host="127.0.0.1", port=8000, reload=True)
+    uvicorn.run(
+        app,
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 8000))
+    )
